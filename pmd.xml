@@ -9,7 +9,10 @@
     PMD Basic Configuration
   </description>
 
-  <rule ref="category/java/bestpractices.xml" />
+  <rule ref="category/java/bestpractices.xml">
+    <exclude name="ExhaustiveSwitchHasDefault" />
+    <exclude name="UnitTestAssertionsShouldIncludeMessage" />
+  </rule>
   <rule ref="category/java/bestpractices.xml/GuardLogStatement">
     <properties>
       <property name="logLevels" value="trace , debug , info , warn , error , log , finest , finer , fine , info , warning , severe" />
@@ -54,6 +57,7 @@
     </properties>
   </rule>
   <rule ref="category/java/design.xml">
+    <exclude name="UseObjectForClearerAPI" />
     <!-- As much as I theoretically like the Law of Demeter, the test for it hasn't kept up -->
     <!-- with how a lot of coding is done. It can't handle stream processing. -->
     <exclude name="LawOfDemeter" />
@@ -62,6 +66,11 @@
     <!-- https://pmd.github.io/latest/pmd_rules_java_design.html#loosepackagecoupling for how to configure -->
     <!-- this rule if you want to use 0it. -->
     <exclude name="LoosePackageCoupling" />
+  </rule>
+  <rule ref="category/java/design.xml/CouplingBetweenObjects">
+    <properties>
+      <property name="threshold" value="25" />
+    </properties>
   </rule>
   <rule ref="category/java/design.xml/ExcessiveImports">
     <properties>
