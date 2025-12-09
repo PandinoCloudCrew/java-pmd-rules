@@ -107,5 +107,9 @@
   </rule>
   <rule ref="category/java/performance.xml"/>
   <rule ref="category/java/security.xml"/>
-  <rule ref="category/java/errorprone.xml" />
+  <rule ref="category/java/errorprone.xml">
+    <!-- CloseResource triggers on Hibernate Session from EntityManager.unwrap() -->
+    <!-- which is managed by Spring/Hibernate container, not owned by caller code -->
+    <exclude name="CloseResource" />
+  </rule>
 </ruleset>
