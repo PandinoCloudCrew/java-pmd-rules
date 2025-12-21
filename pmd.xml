@@ -19,7 +19,7 @@
   <rule ref="category/java/bestpractices.xml/GuardLogStatement">
     <properties>
       <property name="logLevels" value="trace , debug , info , warn , error , log , finest , finer , fine , info , warning , severe" />
-      <property name="guardsMethods" value="isTraceEnabled" />
+      <property name="guardsMethods" value="isTraceEnabled , isDebugEnabled , isInfoEnabled , isWarnEnabled , isErrorEnabled" />
     </properties>
   </rule>
   <rule ref="category/java/bestpractices.xml/UnitTestContainsTooManyAsserts">
@@ -31,6 +31,8 @@
   <rule ref="category/java/codestyle.xml">
     <exclude name="OnlyOneReturn" />
     <exclude name="AtLeastOneConstructor" />
+    <!-- CallSuperInConstructor conflicts with Checkstyle UnnecessarySuper - Checkstyle wins -->
+    <exclude name="CallSuperInConstructor" />
   </rule>
   <rule ref="category/java/codestyle.xml/ShortVariable">
     <properties>
@@ -111,5 +113,14 @@
     <!-- CloseResource triggers on Hibernate Session from EntityManager.unwrap() -->
     <!-- which is managed by Spring/Hibernate container, not owned by caller code -->
     <exclude name="CloseResource" />
+  </rule>
+  <!-- AvoidDuplicateLiterals: Enable with skipAnnotations to catch duplicates in code -->
+  <!-- while ignoring @Param, @Mapping, @Query, and OpenAPI annotations which require literal strings -->
+  <rule ref="category/java/errorprone.xml/AvoidDuplicateLiterals">
+    <properties>
+      <property name="skipAnnotations" value="true" />
+      <property name="maxDuplicateLiterals" value="4" />
+      <property name="minimumLength" value="3" />
+    </properties>
   </rule>
 </ruleset>
